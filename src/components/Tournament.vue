@@ -1,10 +1,19 @@
 <template>
-$END$
+  <div>
+    <div>
+      <tournament-round />
+    </div>
+
+
+  </div>
 </template>
 
 <script>
+import TournamentRound from "@/components/TournamentRound";
+
 export default {
-name: "Tournament"
+  name: "Tournament",
+  components: {TournamentRound}
 }
 </script>
 
