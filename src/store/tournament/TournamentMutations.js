@@ -6,12 +6,25 @@ export default {
     SET_ROUND_COUNT(state, roundCount) {
         state.tournament.roundCount = roundCount
     },
-    SET_ROUND_LIST(state, roundLIst) {
-        state.roundList = roundLIst
-        state.tournament.roundList = roundLIst
+    SET_ROUND_LIST(state, roundList) {
+        state.roundList = roundList
+        state.tournament.roundList = roundList
     },
     SET_MATCH_LIST(state, matchList) {
         state.matchList = matchList
         state.tournament.matchList = matchList
+    },
+    SET_WINNER_PARTICIPANT_TO_NEXT_MATCH(state, {name, numberRound, numberMatch, index, id}) {
+
+        let match = state.matchList.find(match => match.numberRound === numberRound && match.numberMatch === numberMatch)
+        console.log(match)
+        Object.assign(match.participantList[index], {
+            id: id,
+            name: name
+        })
+    },
+    SET_TOURNAMENT_WINNER(state, winnerParticipant) {
+        state.tournament.winner = winnerParticipant
     }
+
 }

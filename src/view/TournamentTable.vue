@@ -1,21 +1,29 @@
 <template>
   <div>
-    <tournament/>
+    <tournament :match-list="getMatchList"
+                :round-list="getRoundList"
+                :winner="winner"
+    />
   </div>
 </template>
 
 <script>
-import Tournament from "@/components/TournamentRound"
+import Tournament from "@/components/Tournament";
 
 import {mapGetters} from "vuex"
 
 export default {
   name: "TournamentTable",
   components: {Tournament},
-  computed:{
+  props:{
+    winner:{
+      type:Object
+    }
+  },
+  computed: {
     ...mapGetters([
-        'getRoundList',
-        'getMatchList'
+      'getRoundList',
+      'getMatchList'
     ])
   }
 }
