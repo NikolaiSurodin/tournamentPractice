@@ -24,7 +24,9 @@
     </template>
     <template>
       <div class="winner" v-if="winner">
+
         Победитель: {{ winner.name }}
+
       </div>
     </template>
 
@@ -59,7 +61,11 @@ export default {
     ] ),
     addTournament() {
       this.createTournament( this.tournament )
-          .then( tournament => this.tournament = tournament )
+          .then( (tournament) => {
+            this.tournament = tournament
+            this.tournament.participantCount = ''
+            this.tournament.numberOfGames = ''
+          } )
           .catch( err => console.log( err ) )
     }
   },

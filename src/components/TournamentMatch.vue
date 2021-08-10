@@ -5,18 +5,18 @@
     first:match.numberRound === 1,
     last:lastMatch,
     completed:match.completed
-  }"
-
-  >
+  }">
     <div class="participant-container">
       <span class="participant-avatar">
-        <img class="logo" src="../assets/avatar.png" alt="logo" @click="incrementParticipantScore(0)"/>
+        <img class="logo" src="../assets/avatar.png" alt="logo"
+             @click="incrementParticipantScore(match.participantList[0].id)"/>
       </span>
       <p>{{ match.participantList[0].name }}</p>
       <p>-</p>
       <p>{{ match.participantList[1].name }}</p>
       <span class="participant-avatar">
-        <img class="logo" src="../assets/avatar.png" alt="logo" @click="incrementParticipantScore(1)"/>
+        <img class="logo" src="../assets/avatar.png" alt="logo"
+             @click="incrementParticipantScore(match.participantList[1].id)"/>
       </span>
     </div>
     <div class="score" v-if="match.played">
@@ -52,17 +52,10 @@ export default {
       'addPoint',
       'createTournamentWinner'
     ] ),
-    incrementParticipantScore(i) {
-      let participant = this.match.participantList[i]
-      let participantList = this.match.participantList
+    incrementParticipantScore(id) {
+      let player = this.match.participantList.find( player => player.id === id )
       let match = this.match
-      if ( this.match.played ) {
-        this.addPoint( {
-          participant: participant,
-          match: match,
-          participantList: participantList
-        } )
-      }
+      this.addPoint( { match, player } )
       if ( this.lastMatch && !this.winner ) {
         this.createTournamentWinner()
       }
@@ -121,6 +114,7 @@ export default {
   box-shadow: 0 1px 6px 0;
   color: #000000;
 }
+
 .match.completed:after {
   border-color: #00ff05;
   border-width: 2px;
@@ -129,7 +123,8 @@ export default {
   width: 10px;
   right: -10px;
 }
-.match.completed.last:after{
+
+.match.completed.last:after {
   display: none;
 }
 

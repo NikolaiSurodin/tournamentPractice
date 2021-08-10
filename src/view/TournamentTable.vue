@@ -2,8 +2,7 @@
   <div class="page">
     <tournament :match-list="getMatchList"
                 :round-list="getRoundList"
-                :winner="winner"
-    />
+                :winner="winner"/>
   </div>
 </template>
 
@@ -14,23 +13,23 @@ import {mapGetters} from "vuex"
 
 export default {
   name: "TournamentTable",
-  components: {Tournament},
-  props:{
-    winner:{
-      type:Object
+  components: { Tournament },
+  props: {
+    winner: {
+      type: Object
     }
   },
   computed: {
-    ...mapGetters([
+    ...mapGetters( [
       'getRoundList',
       'getMatchList'
-    ])
+    ] )
   }
 }
 </script>
 
 <style scoped>
-.page{
+.page {
   align-items: center;
   justify-content: center;
   display: flex;

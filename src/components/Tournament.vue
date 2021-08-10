@@ -1,28 +1,18 @@
 <template>
   <div>
     <div class="tournament" v-if="!checkedName">
-
       <div class="round"
-           v-for="round in roundList" :key="round.numberRound"
-      >
-
+           v-for="round in roundList" :key="round.numberRound">
         <tournament-round
             :match-list="matchList"
             :round="round"
-            :winner="winner"
-        />
-
-
+            :winner="winner"/>
       </div>
-
     </div>
-
     <div v-else>
       Не хватает свободных имен
     </div>
   </div>
-
-
 </template>
 
 <script>

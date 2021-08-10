@@ -3,19 +3,15 @@
     <span class="round-number-item">
       Round {{ round.numberRound }}
     </span>
-      <ul class="round-item">
-
-
+    <ul class="round-item">
       <li class="match-item"
-           v-for="match in matchListFromRound(round.numberRound)" :key="match.id">
+          v-for="match in matchList.filter( match => match.numberRound === round.numberRound )" :key="match.id">
 
         <tournament-match :match="match"
                           :last-match="match === matchList[matchList.length - 1]"
-                          :winner="winner"
-
-        />
+                          :winner="winner"/>
       </li>
-      </ul>
+    </ul>
   </div>
 </template>
 
@@ -24,7 +20,7 @@ import TournamentMatch from "@/components/TournamentMatch";
 
 export default {
   name: "TournamentRound",
-  components: {TournamentMatch},
+  components: { TournamentMatch },
   data() {
     return {}
   },
@@ -39,20 +35,15 @@ export default {
       required: true,
       default: null
     },
-    winner:{
-      type:Object
-    }
-  },
-  methods: {
-    matchListFromRound(numberRound) {
-      return this.matchList.filter(match => match.numberRound === numberRound)
+    winner: {
+      type: Object
     }
   }
 }
 </script>
 
 <style scoped>
-.round-number-item{
+.round-number-item {
   width: 88px;
   background-color: #bff1bf;
   padding: 13px 84px;
