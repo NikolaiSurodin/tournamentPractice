@@ -3,8 +3,13 @@
     <template>
       <form class="form">
         <h1>Турнир</h1>
-        <input class="input" placeholder="Количество участников" v-model.number="tournament.participantCount">
-        <input class="input" placeholder="Количество очков за матч" @keydown.enter="addTournament" v-model.number="tournament.numberOfGames">
+        <input class="input"
+               placeholder="Количество участников"
+               v-model.number="tournament.participantCount">
+        <input class="input"
+               placeholder="Количество очков за матч"
+               @keydown.enter="addTournament"
+               v-model.number="tournament.numberOfGames">
         <button type="button"
                 class="btn"
                 @click.prevent="addTournament"
@@ -22,6 +27,7 @@
         Победитель: {{ winner.name }}
       </div>
     </template>
+
     <template>
       <tournament-table :winner="winner"/>
     </template>
@@ -38,28 +44,29 @@ import {mapGetters} from "vuex"
 
 export default {
   name: "TournamentPage",
-  components: {TournamentTable},
+  components: { TournamentTable },
   data() {
     return {
-      tournament: new Tournament({
+      tournament: new Tournament( {
         participantCount: this.participantCount,
         numberOfGames: this.numberOfGames
-      })
+      } )
     }
   },
   methods: {
-    ...mapActions([
+    ...mapActions( [
       'createTournament'
-    ]),
+    ] ),
     addTournament() {
-      this.createTournament(this.tournament)
-          .then()
-          .catch(err => console.log(err))
-    },
-
+      this.createTournament( this.tournament )
+          .then( tournament => this.tournament = tournament )
+          .catch( err => console.log( err ) )
+    }
   },
   computed: {
-    ...mapGetters(['getTournamentWinner']),
+    ...mapGetters( [
+      'getTournamentWinner'
+    ] ),
     valid() {
       return this.tournament.participantCount && this.tournament.numberOfGames
     },
@@ -67,8 +74,8 @@ export default {
       return this.getTournamentWinner
     }
   }
-
 }
+
 </script>
 
 <style scoped>
@@ -110,9 +117,10 @@ export default {
   margin-top: 20px;
   background-color: #f1f2fa;
 }
-.btn.disabled{
- background-color: #ffffff;
-  color:#e2e2e2;
+
+.btn.disabled {
+  background-color: #ffffff;
+  color: #e2e2e2;
 }
 
 .btn:hover {

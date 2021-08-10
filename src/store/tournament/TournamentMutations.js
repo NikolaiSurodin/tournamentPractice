@@ -17,7 +17,6 @@ export default {
     SET_WINNER_PARTICIPANT_TO_NEXT_MATCH(state, {name, numberRound, numberMatch, index, id}) {
 
         let match = state.matchList.find(match => match.numberRound === numberRound && match.numberMatch === numberMatch)
-        console.log(match)
         Object.assign(match.participantList[index], {
             id: id,
             name: name

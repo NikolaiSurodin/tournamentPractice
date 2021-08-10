@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page">
     <tournament :match-list="getMatchList"
                 :round-list="getRoundList"
                 :winner="winner"
@@ -30,5 +30,9 @@ export default {
 </script>
 
 <style scoped>
-
+.page{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
 </style>

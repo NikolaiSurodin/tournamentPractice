@@ -2,7 +2,7 @@
   <div class="match"
        :class="{
     twoMatchLine:match.numberMatch % 2 === 0,
-    first:match.numberRound===1,
+    first:match.numberRound === 1,
     last:lastMatch,
     completed:match.completed
   }"
@@ -10,13 +10,13 @@
   >
     <div class="participant-container">
       <span class="participant-avatar">
-        <img src="../assets/logo.png" width="40" height="40" @click="incrementParticipantScore(0)"/>
+        <img class="logo" src="../assets/avatar.png" alt="logo" @click="incrementParticipantScore(0)"/>
       </span>
       <p>{{ match.participantList[0].name }}</p>
       <p>-</p>
       <p>{{ match.participantList[1].name }}</p>
       <span class="participant-avatar">
-        <img src="../assets/logo.png" width="40" height="40" @click="incrementParticipantScore(1)"/>
+        <img class="logo" src="../assets/avatar.png" alt="logo" @click="incrementParticipantScore(1)"/>
       </span>
     </div>
     <div class="score" v-if="match.played">
@@ -48,22 +48,22 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
+    ...mapActions( [
       'addPoint',
       'createTournamentWinner'
-    ]),
+    ] ),
     incrementParticipantScore(i) {
       let participant = this.match.participantList[i]
       let participantList = this.match.participantList
       let match = this.match
-      if (this.match.played) {
-        this.addPoint({
+      if ( this.match.played ) {
+        this.addPoint( {
           participant: participant,
           match: match,
           participantList: participantList
-        })
+        } )
       }
-      if (this.lastMatch) {
+      if ( this.lastMatch && !this.winner ) {
         this.createTournamentWinner()
       }
     }
@@ -88,8 +88,8 @@ export default {
   border-width: 1px;
   position: absolute;
   display: block;
-  width: 5px;
-  right: -7px;
+  width: 10px;
+  right: -10px;
   border-right-style: solid;
   border-bottom-style: solid;
   top: 50%;
@@ -117,9 +117,20 @@ export default {
 }
 
 .match.completed {
-  background-color: #ccfcd9;
+  background-color: #defce6;
   box-shadow: 0 1px 6px 0;
   color: #000000;
+}
+.match.completed:after {
+  border-color: #00ff05;
+  border-width: 2px;
+  position: absolute;
+  display: block;
+  width: 10px;
+  right: -10px;
+}
+.match.completed.last:after{
+  display: none;
 }
 
 .twoMatchLine::after {
@@ -147,6 +158,12 @@ export default {
   border-radius: 50%;
   height: 40px;
   width: 40px;
+}
+
+.logo {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
 }
 
 .participant-avatar:hover {
