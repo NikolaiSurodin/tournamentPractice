@@ -48,16 +48,16 @@ export default {
     addPoint({ commit, getters }, match) {
         let roundCount = getters.getTournament.roundCount
         let currentMatch = match.match
-        let participant = currentMatch.participantList.find( player => player.id === match.participantId )
         let participantList = currentMatch.participantList
+        let participant = participantList.find( player => player.id === match.participantId )
         let sumParticipantsScore = participantList[0].score + participantList[1].score
 
-        if ( currentMatch.score > sumParticipantsScore && participant.name !== 'Player' ) {
+        if ( currentMatch.score > sumParticipantsScore && participant.name !== 'TBA' ) {
 
             participant.score++
         }
 
-        if ( currentMatch.score === sumParticipantsScore + 1 && participant.name !== 'Player' ) {
+        if ( currentMatch.score === sumParticipantsScore + 1 && participant.name !== 'TBA' ) {
 
             let winnerParticipant = participant.score > participant.score ? participant : participant
 
@@ -87,18 +87,16 @@ export default {
             }
         }
     },
-
     createTournamentWinner({ commit, getters }) {
         let matchList = getters.getMatchList
         let lastMatch = matchList[matchList.length - 1]
         let participantListLastMatch = lastMatch.participantList
-        if ( participantListLastMatch[0].name !== 'Player' || participantListLastMatch[1].name !== 'Player' ) {
+        if ( participantListLastMatch[0].name !== 'TBA' || participantListLastMatch[1].name !== 'TBA' ) {
             let winnerParticipant = participantListLastMatch[0].score > participantListLastMatch[1].score ? participantListLastMatch[0] : participantListLastMatch[1]
 
             if ( lastMatch.score === participantListLastMatch[0].score + participantListLastMatch[1].score ) {
                 commit( 'SET_TOURNAMENT_WINNER', winnerParticipant )
             }
-
         }
     }
 

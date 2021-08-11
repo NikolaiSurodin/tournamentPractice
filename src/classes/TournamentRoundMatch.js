@@ -26,11 +26,7 @@ class TournamentRoundMatch {
         this.completed = false
     }
     getParticipantList(numberRound){
-        if (numberRound === 1) {
-            return [new TournamentRoundMatchParticipant(), new TournamentRoundMatchParticipant()]
-        } else {
-            return [new TournamentRoundMatchParticipant( 'Player'), new TournamentRoundMatchParticipant('Player')]
-        }
+       return  numberRound === 1 ? [new TournamentRoundMatchParticipant(), new TournamentRoundMatchParticipant()] : [new TournamentRoundMatchParticipant('TBA'), new TournamentRoundMatchParticipant("TBA")]
     }
 }
 
