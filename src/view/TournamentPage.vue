@@ -14,9 +14,8 @@
                 class="btn"
                 @click.prevent="addTournament"
                 :disabled="!valid"
-                :class="{disabled:!valid}"
+                :class="{disabled:!valid}">
 
-        >
           Создать турнир
 
         </button>
@@ -146,7 +145,6 @@ export default {
   font-size: 20px;
   position: relative;
   margin: 16px auto;
-
 }
 
 </style>

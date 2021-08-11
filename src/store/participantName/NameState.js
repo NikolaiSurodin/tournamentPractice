@@ -15,6 +15,6 @@ export default {
         "Teresa", "Diaz",
         "Wanda", "Thomas"
     ],
-    usedNameIndexList:[],
-    usedNameList:[]
+    usedNameIndexList: [],
+    usedNameList: []
 }

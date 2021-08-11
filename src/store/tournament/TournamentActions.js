@@ -47,18 +47,17 @@ export default {
     },
     addPoint({ commit, getters }, match) {
         let roundCount = getters.getTournament.roundCount
-
         let currentMatch = match.match
-        let participant = match.player
+        let participant = currentMatch.participantList.find( player => player.id === match.participantId )
         let participantList = currentMatch.participantList
-        let sumParticipantsScore = (participantList[0].score + participantList[1].score) + 1
+        let sumParticipantsScore = participantList[0].score + participantList[1].score
 
-        if ( sumParticipantsScore <= currentMatch.score && participant.name !== 'Player' && currentMatch.played) {
+        if ( currentMatch.score > sumParticipantsScore && participant.name !== 'Player' ) {
 
             participant.score++
         }
 
-        if ( currentMatch.score === sumParticipantsScore ) {
+        if ( currentMatch.score === sumParticipantsScore + 1 && participant.name !== 'Player' ) {
 
             let winnerParticipant = participant.score > participant.score ? participant : participant
 
@@ -84,7 +83,6 @@ export default {
                     numberMatch: nextMatchNumber / 2,
                     numberRound: currentMatch.numberRound + 1,
                     index: participantIndex
-
                 } )
             }
         }
@@ -95,7 +93,6 @@ export default {
         let lastMatch = matchList[matchList.length - 1]
         let participantListLastMatch = lastMatch.participantList
         if ( participantListLastMatch[0].name !== 'Player' || participantListLastMatch[1].name !== 'Player' ) {
-
             let winnerParticipant = participantListLastMatch[0].score > participantListLastMatch[1].score ? participantListLastMatch[0] : participantListLastMatch[1]
 
             if ( lastMatch.score === participantListLastMatch[0].score + participantListLastMatch[1].score ) {

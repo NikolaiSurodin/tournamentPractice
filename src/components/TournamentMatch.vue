@@ -53,12 +53,16 @@ export default {
       'createTournamentWinner'
     ] ),
     incrementParticipantScore(id) {
-      let player = this.match.participantList.find( player => player.id === id )
-      let match = this.match
-      this.addPoint( { match, player } )
+      if ( this.match.played ) {
+        let match = this.match
+        this.addPoint( { match, participantId: id } )
+      }
       if ( this.lastMatch && !this.winner ) {
         this.createTournamentWinner()
+
       }
+
+
     }
   }
 }
@@ -92,8 +96,8 @@ export default {
   content: "";
   border-top: 1px solid #00195f;
   position: absolute;
-  width: 33px;
-  left: -33px;
+  width: 31px;
+  left: -31px;
   top: 50%;
 }
 
