@@ -4,6 +4,7 @@
       Round {{ round.numberRound }}
     </span>
     <ul class="round-item">
+
       <li class="match-item"
           v-for="match in matchList.filter( match => match.numberRound === round.numberRound )" :key="match.id">
 
@@ -16,8 +17,7 @@
 </template>
 
 <script>
-import TournamentMatch from "@/components/TournamentMatch";
-
+import TournamentMatch from "@/components/TournamentMatch"
 export default {
   name: "TournamentRound",
   components: { TournamentMatch },

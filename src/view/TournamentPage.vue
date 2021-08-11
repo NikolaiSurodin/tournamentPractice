@@ -21,6 +21,17 @@
         </button>
       </form>
     </template>
+
+    <template>
+      <div class="participant-name">
+        <ul class="name-list">
+          <draggable class="name-list" v-model="getNameList" group="people" @start="drag=true" @end="drag=false">
+            <div class="name-item" v-for="(name, idx) in getNameList" :key="idx">{{ name }}</div>
+          </draggable>
+        </ul>
+      </div>
+    </template>
+
     <template>
       <div class="winner" v-if="winner">
 
@@ -32,22 +43,23 @@
     <template>
       <tournament-table :winner="winner"/>
     </template>
-
   </div>
 </template>
 
 <script>
 import {Tournament} from "@/classes/Tournament"
 import TournamentTable from "@/view/TournamentTable"
+import draggable from 'vuedraggable'
 
 import {mapActions} from "vuex"
 import {mapGetters} from "vuex"
 
 export default {
   name: "TournamentPage",
-  components: { TournamentTable },
+  components: { TournamentTable, draggable },
   data() {
     return {
+      arr:['kolya', 'sasha'],
       tournament: new Tournament( {
         participantCount: this.participantCount,
         numberOfGames: this.numberOfGames
@@ -70,7 +82,8 @@ export default {
   },
   computed: {
     ...mapGetters( [
-      'getTournamentWinner'
+      'getTournamentWinner',
+      'getNameList'
     ] ),
     valid() {
       return this.tournament.participantCount && this.tournament.numberOfGames
@@ -145,6 +158,28 @@ export default {
   font-size: 20px;
   position: relative;
   margin: 16px auto;
+}
+
+.participant-name {
+  width: 160px;
+  position: absolute;
+  top: 40px;
+  left: 15px;
+}
+
+.name-list {
+  line-height: 10px;
+  list-style: none;
+}
+
+.name-item {
+  border: 1px solid;
+  padding: 5px 20px;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-top: 5px;
 }
 
 </style>
