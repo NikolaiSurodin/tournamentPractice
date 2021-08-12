@@ -4,5 +4,8 @@ export default {
     },
     ADD_NAME(state, name) {
         state.usedNameList.push(name)
+    },
+    updateList(state, value) {
+        console.log(value)
     }
 }

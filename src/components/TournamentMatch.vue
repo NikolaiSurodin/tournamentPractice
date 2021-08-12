@@ -6,14 +6,32 @@
     last:lastMatch,
     completed:match.completed
   }">
+    <div class="draggable">
+
+      <draggable v-if="match.numberRound === 1"
+                 :list="match.participantList"
+                 group="people"
+                 @start="drag=true"
+                 @end="drag=false">
+        <span v-for="(participant, idx) in arr" :key="idx">{{ participant.name }} </span>
+      </draggable>
+    </div>
     <div class="participant-container">
+
+
       <span class="participant-avatar">
         <img class="logo" src="../assets/avatar.png" alt="logo"
              @click="incrementParticipantScore(match.participantList[0].id)"/>
       </span>
-      <p>{{ match.participantList[0].name }}</p>
+
+
+
+      <p :class="{drag: match.numberRound === 1}">{{ match.participantList[0].name }}</p>
+
       <p>-</p>
-      <p>{{ match.participantList[1].name }}</p>
+
+      <p :class="{drag: match.numberRound === 1}">{{ match.participantList[1].name }}</p>
+
       <span class="participant-avatar">
         <img class="logo" src="../assets/avatar.png" alt="logo"
              @click="incrementParticipantScore(match.participantList[1].id)"/>
@@ -30,11 +48,15 @@
 
 <script>
 import {mapActions} from "vuex"
+import draggable from "vuedraggable";
 
 export default {
   name: "TournamentMatch",
+  components: { draggable },
   data() {
-    return {}
+    return {
+      arr: []
+    }
   },
   props: {
     match: {
@@ -69,8 +91,12 @@ export default {
 </script>
 
 <style scoped>
+.draggable {
+  height: 20px;
+}
+
 .match {
-  height: 100px;
+  height: 114px;
   width: 255px;
   background-color: #f1f2ff;
   border: 2px solid #000000;

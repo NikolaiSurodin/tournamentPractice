@@ -5,6 +5,7 @@ class Tournament {
     matchList //список матчей
     winner // победитель турнира
     numberOfGames // количесво очков доя каждого матча
+    random
 
     constructor(options = {}) {
         for (let key of Object.keys(this)) {

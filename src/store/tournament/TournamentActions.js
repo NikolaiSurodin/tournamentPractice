@@ -1,6 +1,7 @@
 import {Tournament} from "@/classes/Tournament";
 import {TournamentRound} from "@/classes/TournamentRound";
 import {TournamentRoundMatch} from "@/classes/TournamentRoundMatch";
+import {TournamentRoundMatchParticipant} from "@/classes/TournamentRoundMatchParticipant";
 
 export default {
 
@@ -40,7 +41,6 @@ export default {
                 let match = new TournamentRoundMatch( numberRound, numberMatch )
 
                 matchList.push( match )
-
             }
         } )
         commit( 'SET_MATCH_LIST', matchList )
@@ -98,6 +98,13 @@ export default {
                 commit( 'SET_TOURNAMENT_WINNER', winnerParticipant )
             }
         }
+    },
+    createParticipantList({ commit, getters }) {
+        let list = []
+        let count = getters.getNameList.length
+        for (let i = 0; i < count - 4; i++) {
+            list.push( new TournamentRoundMatchParticipant() )
+        }
+        commit( 'SET_PLAY_NAME', list )
     }
-
 }

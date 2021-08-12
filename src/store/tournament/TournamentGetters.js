@@ -3,5 +3,6 @@ export default {
     getMatchList: state => state.matchList,
     getRoundList: state => state.roundList,
     getParticipantCount: state => state.participantCount,
-    getTournamentWinner: state => state.tournament.winner
+    getTournamentWinner: state => state.tournament.winner,
+    getParticipantList: state => state.participantList
 }

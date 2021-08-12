@@ -19,14 +19,17 @@
           Создать турнир
 
         </button>
+        <input type="checkbox" v-model="tournament.random"><label>random</label>
       </form>
     </template>
 
     <template>
       <div class="participant-name">
         <ul class="name-list">
-          <draggable class="name-list" v-model="getNameList" group="people" @start="drag=true" @end="drag=false">
-            <div class="name-item" v-for="(name, idx) in getNameList" :key="idx">{{ name }}</div>
+          <draggable class="name-list" :list="participantList" group="people" @start="drag=true" @end="drag=false">
+            <div class="name-item" v-for="(participant, idx) in list" :key="idx">
+              {{ participant.name }}
+            </div>
           </draggable>
         </ul>
       </div>
@@ -59,16 +62,18 @@ export default {
   components: { TournamentTable, draggable },
   data() {
     return {
-      arr:['kolya', 'sasha'],
+      random: false,
       tournament: new Tournament( {
         participantCount: this.participantCount,
-        numberOfGames: this.numberOfGames
+        numberOfGames: this.numberOfGames,
+        random: this.random
       } )
     }
   },
   methods: {
     ...mapActions( [
-      'createTournament'
+      'createTournament',
+      'createParticipantList'
     ] ),
     addTournament() {
       this.createTournament( this.tournament )
@@ -78,18 +83,31 @@ export default {
             this.tournament.numberOfGames = ''
           } )
           .catch( err => console.log( err ) )
+      this.createParticipantList()
     }
   },
   computed: {
     ...mapGetters( [
       'getTournamentWinner',
-      'getNameList'
+      'getParticipantList'
     ] ),
     valid() {
       return this.tournament.participantCount && this.tournament.numberOfGames
     },
     winner() {
       return this.getTournamentWinner
+    },
+    list() {
+      return this.participantList.filter(el => el.name !== 'NO NAME')
+    },
+    participantList: {
+      get() {
+        return this.getParticipantList
+      },
+      set(participantList) {
+
+        this.$store.commit( 'updateList', participantList )
+      }
     }
   }
 }
@@ -180,6 +198,13 @@ export default {
   justify-content: center;
   display: flex;
   margin-top: 5px;
+}
+
+.participant-name1 {
+  width: 160px;
+  position: absolute;
+  top: 40px;
+  left: 150px;
 }
 
 </style>

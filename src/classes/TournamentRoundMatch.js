@@ -11,23 +11,29 @@ class TournamentRoundMatch {
     completed
     played
     winner
+    random
 
     constructor(numberRound, numberMatch) {
-        this.id =`id--${ Math.random().toString(16).slice(-5)}--`
+        this.id = `id--${ Math.random().toString( 16 ).slice( -5 ) }--`
         let year = new Date().getFullYear()
-        let month = Math.floor(Math.random() * 11)
-        let date = Math.floor(Math.random() * 31)
-        this.date = new Date(year, month, date).toISOString().substring(0, 10)
-        this.played = this.date < new Date().toISOString().substring(0, 10)
-        this.participantList =  this.getParticipantList(numberRound)
+        let month = Math.floor( Math.random() * 11 )
+        let date = Math.floor( Math.random() * 31 )
+        this.date = new Date( year, month, date ).toISOString().substring( 0, 10 )
+        this.played = this.date < new Date().toISOString().substring( 0, 10 )
+        this.participantList = this.getParticipantList( numberRound, this.random )
         this.numberRound = numberRound
         this.numberMatch = numberMatch
         this.score = store.getters.getTournament.numberOfGames
         this.completed = false
+        this.random = store.getters.getTournament.random
     }
-    getParticipantList(numberRound){
-       return  numberRound === 1 ? [new TournamentRoundMatchParticipant(), new TournamentRoundMatchParticipant()] : [new TournamentRoundMatchParticipant('TBA'), new TournamentRoundMatchParticipant("TBA")]
+
+    getParticipantList(numberRound) {
+
+        return numberRound === 1 ? [ new TournamentRoundMatchParticipant(), new TournamentRoundMatchParticipant() ] : [ new TournamentRoundMatchParticipant( 'TBA' ), new TournamentRoundMatchParticipant( 'TBA' ) ]
+
     }
+
 }
 
 export {TournamentRoundMatch}

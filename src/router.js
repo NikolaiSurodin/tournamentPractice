@@ -1,5 +1,5 @@
 import Vue from "vue";
-import VueRouter from "vue-router"
+import VueRouter from "vue-router";
 import TournamentPage from "@/view/TournamentPage";
 
 Vue.use(VueRouter)

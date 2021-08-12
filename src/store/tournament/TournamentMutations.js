@@ -14,16 +14,22 @@ export default {
         state.matchList = matchList
         state.tournament.matchList = matchList
     },
-    SET_WINNER_PARTICIPANT_TO_NEXT_MATCH(state, {name, numberRound, numberMatch, index, id}) {
+    SET_WINNER_PARTICIPANT_TO_NEXT_MATCH(state, { name, numberRound, numberMatch, index, id }) {
 
-        let match = state.matchList.find(match => match.numberRound === numberRound && match.numberMatch === numberMatch)
-        Object.assign(match.participantList[index], {
+        let match = state.matchList.find( match => match.numberRound === numberRound && match.numberMatch === numberMatch )
+        Object.assign( match.participantList[index], {
             id: id,
             name: name
-        })
+        } )
     },
     SET_TOURNAMENT_WINNER(state, winnerParticipant) {
         state.tournament.winner = winnerParticipant
+    },
+    SET_PLAY_NAME(state, list) {
+        state.participantList = list
+    },
+    SET_RANDOM(state, match) {
+        match.random = true
     }
 
 }
