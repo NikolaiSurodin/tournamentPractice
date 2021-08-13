@@ -6,31 +6,22 @@
     last:lastMatch,
     completed:match.completed
   }">
-    <div class="draggable">
 
-      <draggable v-if="match.numberRound === 1"
-                 :list="match.participantList"
-                 group="people"
-                 @start="drag=true"
-                 @end="drag=false">
-        <span v-for="(participant, idx) in arr" :key="idx">{{ participant.name }} </span>
-      </draggable>
-    </div>
     <div class="participant-container">
-
-
       <span class="participant-avatar">
         <img class="logo" src="../assets/avatar.png" alt="logo"
              @click="incrementParticipantScore(match.participantList[0].id)"/>
       </span>
 
-
-
-      <p :class="{drag: match.numberRound === 1}">{{ match.participantList[0].name }}</p>
+      <p @drop='onDrop($event,match.participantList[0].id)'
+         @dragover.prevent
+         @dragenter.prevent>{{ match.participantList[0].name }}</p>
 
       <p>-</p>
 
-      <p :class="{drag: match.numberRound === 1}">{{ match.participantList[1].name }}</p>
+      <p @drop='onDrop($event, match.participantList[1].id)'
+         @dragover.prevent
+         @dragenter.prevent>{{ match.participantList[1].name }}</p>
 
       <span class="participant-avatar">
         <img class="logo" src="../assets/avatar.png" alt="logo"
@@ -48,11 +39,10 @@
 
 <script>
 import {mapActions} from "vuex"
-import draggable from "vuedraggable";
+import {mapGetters} from "vuex"
 
 export default {
   name: "TournamentMatch",
-  components: { draggable },
   data() {
     return {
       arr: []
@@ -70,9 +60,17 @@ export default {
     }
   },
   methods: {
+    onDrop(evt, id) {
+      let name = evt.dataTransfer.getData( 'name' )
+      let matchId = this.match.id
+      this.createNameForPlayer( { name, id, matchId } )
+      this.filterNameList( name )
+    },
     ...mapActions( [
       'addPoint',
-      'createTournamentWinner'
+      'createTournamentWinner',
+      'createNameForPlayer',
+      'filterNameList'
     ] ),
     incrementParticipantScore(id) {
       if ( this.match.played ) {
@@ -83,10 +81,12 @@ export default {
         this.createTournamentWinner()
 
       }
-
-
     }
+  },
+  computed: {
+    ...mapGetters( [ 'getParticipantList' ] )
   }
+
 }
 </script>
 
@@ -171,6 +171,10 @@ export default {
   align-items: center;
   padding: 0 6px;
   max-width: 300px;
+}
+
+.participant-container p {
+  border-bottom: 1px solid;
 }
 
 .score {

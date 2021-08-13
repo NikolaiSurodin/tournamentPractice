@@ -11,7 +11,9 @@
 
         <tournament-match :match="match"
                           :last-match="match === matchList[matchList.length - 1]"
-                          :winner="winner"/>
+                          :winner="winner"
+
+        />
       </li>
     </ul>
   </div>

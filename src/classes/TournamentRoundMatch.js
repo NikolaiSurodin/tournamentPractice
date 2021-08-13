@@ -20,7 +20,7 @@ class TournamentRoundMatch {
         let date = Math.floor( Math.random() * 31 )
         this.date = new Date( year, month, date ).toISOString().substring( 0, 10 )
         this.played = this.date < new Date().toISOString().substring( 0, 10 )
-        this.participantList = this.getParticipantList( numberRound, this.random )
+        this.participantList = this.getParticipantList( numberRound )
         this.numberRound = numberRound
         this.numberMatch = numberMatch
         this.score = store.getters.getTournament.numberOfGames
@@ -30,7 +30,7 @@ class TournamentRoundMatch {
 
     getParticipantList(numberRound) {
 
-        return numberRound === 1 ? [ new TournamentRoundMatchParticipant(), new TournamentRoundMatchParticipant() ] : [ new TournamentRoundMatchParticipant( 'TBA' ), new TournamentRoundMatchParticipant( 'TBA' ) ]
+        return numberRound === 1 && this.random  ? [ new TournamentRoundMatchParticipant(), new TournamentRoundMatchParticipant() ] : [ new TournamentRoundMatchParticipant( 'TBA' ), new TournamentRoundMatchParticipant( 'TBA' ) ]
 
     }
 

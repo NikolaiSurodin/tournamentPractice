@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Tournament from "@/components/Tournament";
+import Tournament from "@/components/Tournament"
 
 import {mapGetters} from "vuex"
 

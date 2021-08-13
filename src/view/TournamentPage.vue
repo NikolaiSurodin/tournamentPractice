@@ -19,20 +19,23 @@
           Создать турнир
 
         </button>
-        <input type="checkbox" v-model="tournament.random"><label>random</label>
+        <router-link to="/test">test</router-link>
       </form>
     </template>
 
     <template>
       <div class="participant-name">
-        <ul class="name-list">
-          <draggable class="name-list" :list="participantList" group="people" @start="drag=true" @end="drag=false">
-            <div class="name-item" v-for="(participant, idx) in list" :key="idx">
-              {{ participant.name }}
-            </div>
-          </draggable>
+        <ul class="name-list"
+            v-for="(name, idx) in getParticipantList"
+            :key="idx"
+            draggable="true"
+            @dragstart='startDrag($event, name )'
+        >
+          <li class="name-item">{{ name }}</li>
         </ul>
       </div>
+
+
     </template>
 
     <template>
@@ -52,17 +55,15 @@
 <script>
 import {Tournament} from "@/classes/Tournament"
 import TournamentTable from "@/view/TournamentTable"
-import draggable from 'vuedraggable'
 
 import {mapActions} from "vuex"
 import {mapGetters} from "vuex"
 
 export default {
   name: "TournamentPage",
-  components: { TournamentTable, draggable },
+  components: { TournamentTable },
   data() {
     return {
-      random: false,
       tournament: new Tournament( {
         participantCount: this.participantCount,
         numberOfGames: this.numberOfGames,
@@ -71,9 +72,16 @@ export default {
     }
   },
   methods: {
+    startDrag: (evt, name) => {
+      evt.dataTransfer.dropEffect = 'move'
+      evt.dataTransfer.effectAllowed = 'move'
+      evt.dataTransfer.setData( 'name', name )
+
+    },
     ...mapActions( [
       'createTournament',
-      'createParticipantList'
+      'createParticipantList',
+      'checkName'
     ] ),
     addTournament() {
       this.createTournament( this.tournament )
@@ -89,7 +97,8 @@ export default {
   computed: {
     ...mapGetters( [
       'getTournamentWinner',
-      'getParticipantList'
+      'getParticipantList',
+      'getFilterName'
     ] ),
     valid() {
       return this.tournament.participantCount && this.tournament.numberOfGames
@@ -98,7 +107,7 @@ export default {
       return this.getTournamentWinner
     },
     list() {
-      return this.participantList.filter(el => el.name !== 'NO NAME')
+      return this.participantList
     },
     participantList: {
       get() {
@@ -107,6 +116,7 @@ export default {
       set(participantList) {
 
         this.$store.commit( 'updateList', participantList )
+
       }
     }
   }

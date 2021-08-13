@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import TournamentPage from "@/view/TournamentPage";
-
+import test from "@/view/test";
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -10,6 +10,10 @@ const router = new VueRouter({
         {
             path:'/',
             component:TournamentPage
+        },
+        {
+            path:'/test',
+            component:test
         }
     ]
 })

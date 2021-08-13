@@ -32,5 +32,7 @@ export default {
         "Alice", "Howard"
     ],
     usedNameIndexList: [],
-    usedNameList: []
+    usedNameList: [],
+    currentName:'',
+    filterName: []
 }

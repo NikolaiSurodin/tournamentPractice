@@ -1,7 +1,6 @@
 import {Tournament} from "@/classes/Tournament";
 import {TournamentRound} from "@/classes/TournamentRound";
 import {TournamentRoundMatch} from "@/classes/TournamentRoundMatch";
-import {TournamentRoundMatchParticipant} from "@/classes/TournamentRoundMatchParticipant";
 
 export default {
 
@@ -100,11 +99,8 @@ export default {
         }
     },
     createParticipantList({ commit, getters }) {
-        let list = []
-        let count = getters.getNameList.length
-        for (let i = 0; i < count - 4; i++) {
-            list.push( new TournamentRoundMatchParticipant() )
-        }
+        let list = getters.getNameList
+
         commit( 'SET_PLAY_NAME', list )
     }
 }
