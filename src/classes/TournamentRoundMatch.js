@@ -30,7 +30,7 @@ class TournamentRoundMatch {
 
     getParticipantList(numberRound) {
 
-        return numberRound === 1 && this.random  ? [ new TournamentRoundMatchParticipant(), new TournamentRoundMatchParticipant() ] : [ new TournamentRoundMatchParticipant( 'TBA' ), new TournamentRoundMatchParticipant( 'TBA' ) ]
+        return numberRound === 1  ? [ new TournamentRoundMatchParticipant(), new TournamentRoundMatchParticipant() ] : [ new TournamentRoundMatchParticipant( 'TBA' ), new TournamentRoundMatchParticipant( 'TBA' ) ]
 
     }
 

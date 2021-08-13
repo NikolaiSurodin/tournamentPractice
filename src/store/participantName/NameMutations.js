@@ -16,9 +16,9 @@ export default {
     },
     SET_PLAYER_NEW_NAME(state, { ev, match }) {
         let participant = match.participantList.find( el => el.id === ev.id )
-        participant.name = ev.name
+            participant.name = ev.name
     },
     SET_FILTER(state, nameList) {
-        state.filterName = nameList
+        state.nameList = nameList
     }
 }

@@ -15,24 +15,7 @@ export default {
         "Teresa", "Diaz",
         "Wanda", "Thomas"
     ],
-    randomNameList: [
-        "Brooks",
-        "Rachel", "Edwards",
-        "Christopher", "Perez",
-        "Thomas", "Baker",
-        "Sara", "Moore",
-        "Chris", "Bailey",
-        "Roger", "Johnson",
-        "Marilyn", "Thompson",
-        "Anthony", "Evans",
-        "Julie", "Hall",
-        "Paula", "Phillips",
-        "Annie", "Hernandez",
-        "Dorothy", "Murphy",
-        "Alice", "Howard"
-    ],
     usedNameIndexList: [],
     usedNameList: [],
     currentName:'',
-    filterName: []
 }

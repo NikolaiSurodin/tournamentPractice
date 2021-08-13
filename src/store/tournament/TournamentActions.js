@@ -102,5 +102,8 @@ export default {
         let list = getters.getNameList
 
         commit( 'SET_PLAY_NAME', list )
+    },
+    createRandom({commit}, random) {
+        commit('SET_RANDOM', random)
     }
 }

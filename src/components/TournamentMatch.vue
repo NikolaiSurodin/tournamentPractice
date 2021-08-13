@@ -61,10 +61,13 @@ export default {
   },
   methods: {
     onDrop(evt, id) {
-      let name = evt.dataTransfer.getData( 'name' )
-      let matchId = this.match.id
-      this.createNameForPlayer( { name, id, matchId } )
-      this.filterNameList( name )
+      if ( this.match.numberRound === 1 ) {
+        let name = evt.dataTransfer.getData( 'name' )
+        let matchId = this.match.id
+        this.createNameForPlayer( { name, id, matchId } )
+        this.filterNameList( name )
+      }
+
     },
     ...mapActions( [
       'addPoint',

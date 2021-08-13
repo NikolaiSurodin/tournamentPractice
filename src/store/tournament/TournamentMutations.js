@@ -27,5 +27,9 @@ export default {
     },
     SET_PLAY_NAME(state, list) {
         state.participantList = list
+    },
+    SET_RANDOM(state, random) {
+        state.tournament.random = random
+        state.matchList.forEach( el => el.random = random )
     }
 }

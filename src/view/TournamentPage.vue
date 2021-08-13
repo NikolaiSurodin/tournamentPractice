@@ -19,14 +19,22 @@
           Создать турнир
 
         </button>
-        <router-link to="/test">test</router-link>
+
+        <button type="button"
+                class="btn"
+                @click.prevent="allPlace"
+        >
+
+          Place All
+
+        </button>
       </form>
     </template>
 
     <template>
       <div class="participant-name">
         <ul class="name-list"
-            v-for="(name, idx) in getParticipantList"
+            v-for="(name, idx) in getNameList"
             :key="idx"
             draggable="true"
             @dragstart='startDrag($event, name )'
@@ -81,8 +89,13 @@ export default {
     ...mapActions( [
       'createTournament',
       'createParticipantList',
-      'checkName'
+      'checkName',
+      'createRandom',
+      'createName'
     ] ),
+    allPlace() {
+      this.createRandom( this.random = true )
+    },
     addTournament() {
       this.createTournament( this.tournament )
           .then( (tournament) => {
@@ -98,7 +111,7 @@ export default {
     ...mapGetters( [
       'getTournamentWinner',
       'getParticipantList',
-      'getFilterName'
+      'getNameList',
     ] ),
     valid() {
       return this.tournament.participantCount && this.tournament.numberOfGames

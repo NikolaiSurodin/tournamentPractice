@@ -35,10 +35,8 @@ export default {
         let match = getters.getMatchList.find( match => match.id === ev.matchId )
         commit( 'SET_PLAYER_NEW_NAME', { ev, match } )
     },
-    filterNameList({ commit,getters }, name) {
-        let list = getters.getNameList
-        let filterList = list.filter(el => el !== name)
-        commit( 'SET_FILTER', filterList )
+    filterNameList({ commit, getters }, name) {
+        commit( 'SET_FILTER', getters.getNameList.filter( el => el !== name ) )
 
     }
 }
