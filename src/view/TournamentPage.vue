@@ -22,6 +22,8 @@
 
         <button type="button"
                 class="btn"
+                :disabled="placeAllValid"
+                :class="{disabled:placeAllValid}"
                 @click.prevent="allPlace"
         >
 
@@ -32,9 +34,9 @@
     </template>
 
     <template>
-      <div class="participant-name">
+      <div class="participant-name" v-if="tournament">
         <ul class="name-list"
-            v-for="(name, idx) in getNameList"
+            v-for="(name, idx) in usedNameList"
             :key="idx"
             draggable="true"
             @dragstart='startDrag($event, name )'
@@ -84,27 +86,32 @@ export default {
       evt.dataTransfer.dropEffect = 'move'
       evt.dataTransfer.effectAllowed = 'move'
       evt.dataTransfer.setData( 'name', name )
-
     },
     ...mapActions( [
       'createTournament',
       'createParticipantList',
       'checkName',
       'createRandom',
-      'createName'
+      'createName',
+      'createRandomName',
+      'randomName'
     ] ),
     allPlace() {
-      this.createRandom( this.random = true )
+      if ( !this.getNameForRandom.length ) {
+        this.createRandomName()
+      }
     },
     addTournament() {
       this.createTournament( this.tournament )
           .then( (tournament) => {
             this.tournament = tournament
+            for (let i = 0; i < this.tournament.participantCount; i++) {
+              this.createName()
+            }
             this.tournament.participantCount = ''
             this.tournament.numberOfGames = ''
           } )
           .catch( err => console.log( err ) )
-      this.createParticipantList()
     }
   },
   computed: {
@@ -112,25 +119,23 @@ export default {
       'getTournamentWinner',
       'getParticipantList',
       'getNameList',
+      'getTournament',
+      'getUsedNameIndexList',
+      'getUsedNameList',
+      'getNameForRandom',
+      'getParticipantCount'
     ] ),
     valid() {
       return this.tournament.participantCount && this.tournament.numberOfGames
     },
+    placeAllValid() {
+      return this.getUsedNameList.length < this.getParticipantCount
+    },
     winner() {
       return this.getTournamentWinner
     },
-    list() {
-      return this.participantList
-    },
-    participantList: {
-      get() {
-        return this.getParticipantList
-      },
-      set(participantList) {
-
-        this.$store.commit( 'updateList', participantList )
-
-      }
+    usedNameList() {
+      return this.getUsedNameList
     }
   }
 }

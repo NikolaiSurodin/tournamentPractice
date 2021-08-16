@@ -15,13 +15,16 @@ class TournamentRoundMatchParticipant {
         if ( name ) {
             return this.name = name
         } else {
-            store.dispatch( 'createName' )
-                .then( name => this.name = name )
-                .catch( (name) => {
+            if ( store.getters.getTournament.random === true ) {
+                store.dispatch( 'createName' )
+                    .then( name => this.name = name )
+                    .catch( (name) => {
 
-                    this.name = name
+                        this.name = name
 
-                } )
+                    } )
+            }
+
         }
     }
 }

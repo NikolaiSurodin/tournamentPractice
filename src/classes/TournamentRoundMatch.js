@@ -25,12 +25,11 @@ class TournamentRoundMatch {
         this.numberMatch = numberMatch
         this.score = store.getters.getTournament.numberOfGames
         this.completed = false
-        this.random = store.getters.getTournament.random
     }
 
     getParticipantList(numberRound) {
 
-        return numberRound === 1  ? [ new TournamentRoundMatchParticipant(), new TournamentRoundMatchParticipant() ] : [ new TournamentRoundMatchParticipant( 'TBA' ), new TournamentRoundMatchParticipant( 'TBA' ) ]
+        return numberRound === 1  ? [ new TournamentRoundMatchParticipant('TBA'), new TournamentRoundMatchParticipant('TBA') ] : [ new TournamentRoundMatchParticipant( 'TBA' ), new TournamentRoundMatchParticipant( 'TBA' ) ]
 
     }
 

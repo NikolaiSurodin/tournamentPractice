@@ -18,4 +18,6 @@ export default {
     usedNameIndexList: [],
     usedNameList: [],
     currentName:'',
+    indexListForRandomList:[], // индексы для рандомного размешения
+    nameListForRandom:[]
 }
