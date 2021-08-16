@@ -50,42 +50,35 @@ export default {
                 commit( 'SET_RANDOM_NAME_INDEX', index )
                 resolve( name )
             } else {
-                reject(  )
+                reject()
             }
         } )
-
-    },
-    checkName({ commit }, name) {
-        commit( 'SET_NEW_NAME', name )
     },
     createNameForPlayer({ commit, getters }, ev) {
         let match = getters.getMatchList.find( match => match.id === ev.matchId )
         commit( 'SET_PLAYER_NEW_NAME', { ev, match } )
     },
     filterNameList({ commit, getters }, name) {
-        commit( 'SET_FILTER', getters.getUsedNameList.filter( el => el !== name ) )
+        commit( 'SET_FILTERED_NAME_LIST', getters.getUsedNameList.filter( el => el !== name ) )
     },
     createRandomName({ commit, dispatch, getters }) {
-        return new Promise( (resolve,reject) => {
-            let list = getters.getMatchList
-            for (let match of list) {
+        return new Promise( (resolve, reject) => {
+            let matchList = getters.getMatchList
+            for (let match of matchList) {
                 match.random = true
                 if ( match.numberRound === 1 ) {
                     match.participantList.forEach( el => {
-                        dispatch( 'randomName' )
-                            .then( (name) => {
-                                el.name = name
-                                resolve()
-                            } )
-                            .catch(err => reject(err))
-
+                        if ( el.name === 'TBA' )
+                            dispatch( 'randomName' )
+                                .then( (name) => {
+                                    el.name = name
+                                } )
+                                .catch( err => reject( err ) )
                     } )
 
                 }
             }
-            commit('clearRandomNameList')
+            commit( 'CLEAR_NAME_LIST' )
         } )
-
-
     }
 }

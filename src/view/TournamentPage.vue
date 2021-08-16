@@ -22,12 +22,10 @@
 
         <button type="button"
                 class="btn"
-                :disabled="placeAllValid"
-                :class="{disabled:placeAllValid}"
-                @click.prevent="allPlace"
+                @click.prevent="randomSeeding"
         >
 
-          Place All
+          Случайный посев
 
         </button>
       </form>
@@ -89,14 +87,10 @@ export default {
     },
     ...mapActions( [
       'createTournament',
-      'createParticipantList',
-      'checkName',
-      'createRandom',
       'createName',
       'createRandomName',
-      'randomName'
     ] ),
-    allPlace() {
+    randomSeeding() {
       if ( !this.getNameForRandom.length ) {
         this.createRandomName()
       }
@@ -117,19 +111,13 @@ export default {
   computed: {
     ...mapGetters( [
       'getTournamentWinner',
-      'getParticipantList',
       'getNameList',
-      'getTournament',
       'getUsedNameIndexList',
       'getUsedNameList',
-      'getNameForRandom',
-      'getParticipantCount'
+      'getNameForRandom'
     ] ),
     valid() {
       return this.tournament.participantCount && this.tournament.numberOfGames
-    },
-    placeAllValid() {
-      return this.getUsedNameList.length < this.getParticipantCount
     },
     winner() {
       return this.getTournamentWinner

@@ -97,13 +97,5 @@ export default {
                 commit( 'SET_TOURNAMENT_WINNER', winnerParticipant )
             }
         }
-    },
-    createParticipantList({ commit, getters }) {
-        let list = getters.getNameList
-
-        commit( 'SET_PLAY_NAME', list )
-    },
-    createRandom({commit}, random) {
-        commit('SET_RANDOM', random)
     }
 }

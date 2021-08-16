@@ -39,14 +39,11 @@
 
 <script>
 import {mapActions} from "vuex"
-import {mapGetters} from "vuex"
 
 export default {
   name: "TournamentMatch",
   data() {
-    return {
-      arr: []
-    }
+    return {}
   },
   props: {
     match: {
@@ -81,12 +78,8 @@ export default {
       }
       if ( this.lastMatch && !this.winner ) {
         this.createTournamentWinner()
-
       }
     }
-  },
-  computed: {
-    ...mapGetters( [ 'getParticipantList' ] )
   }
 
 }
